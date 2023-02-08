@@ -18,6 +18,7 @@ public class MemberApp {
         //후
 //        MemberService memberService = appConfig.memberService();
 
+        //스프링에 맡기면 스프링은 기본적으로 싱글톤으로 동작한다
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
         MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
 
