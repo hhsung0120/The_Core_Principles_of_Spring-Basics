@@ -1,7 +1,7 @@
 package hello.core.common;
 
-import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -9,14 +9,15 @@ import javax.annotation.PreDestroy;
 import java.util.UUID;
 
 @Component
-@Scope(value = "request") //HTTP 요청당 하나가 생기고 스프링이 끝나는 시점에 소멸
+//@Scope(value = "request") //HTTP 요청당 하나가 생기고 스프링이 끝나는 시점에 소멸
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS) //프록시 스코프로 만들기 ObjectProvider<MyLogger> 랑같은 기능 제공
 public class MyLogger {
 
     private String uuid;
     private String requestURL;
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setRequestURL(String requestURL) {
+        this.requestURL = requestURL;
     }
 
     public void log(String message) {
